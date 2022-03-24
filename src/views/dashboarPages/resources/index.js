@@ -1,20 +1,33 @@
-// material-ui
-import { Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardHeader, CardContent, Grid, Box, Button } from '@mui/material';
+import cogoToast from 'cogo-toast';
 
-// project imports
-import MainCard from 'ui-component/cards/MainCard';
+const TableList = () => {
+    const a = '';
 
-// ==============================|| SAMPLE PAGE ||============================== //
+    return (
+        <Grid container>
+            <Grid item xs={12} sm={12} md={12}>
+                <Card>
+                    <CardHeader color="primary">
+                        <Grid container spacing={1}>
+                            <Grid container item xs={3} spacing={3} direction="column">
+                                <Box p={2}>
+                                    <h4> List</h4>
+                                </Box>
+                            </Grid>
+                            <Grid container item xs={9} spacing={3} direction="row" justify="flex-end" alignItems="center">
+                                <Button variant="contained" color="primary">
+                                    Create Whole Sale Customer
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </CardHeader>
+                    <CardContent />
+                </Card>
+            </Grid>
+        </Grid>
+    );
+};
 
-const SamplePage = () => (
-    <MainCard title="Resource">
-        <Typography variant="body2">
-            Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif
-            ad minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in
-            reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa
-            qui officiate descent molls anim id est labours.
-        </Typography>
-    </MainCard>
-);
-
-export default SamplePage;
+export default TableList;

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -19,7 +19,7 @@ import {
     Stack,
     Typography
 } from '@mui/material';
-
+import AuthContext from 'context/authContext/AuthContext';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -38,7 +38,9 @@ const FirebaseLogin = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const [checked, setChecked] = useState(true);
-
+    const navigate = useNavigate();
+    const { isAuthenticated, user, login } = useContext(AuthContext);
+    console.log(user);
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -72,20 +74,28 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
-                    submit: null
+                    email: 'super@gmail.com',
+                    password: '12345678'
+                    // submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+                    console.log(values);
                     try {
-                        if (scriptedRef.current) {
-                            setStatus({ success: true });
-                            setSubmitting(false);
+                        const res = await login(values);
+                        if (res) {
+                            console.log(res);
+                            navigate('/dashboard');
                         }
+                        setSubmitting(false);
+                        // if (scriptedRef.current) {
+                        //     console.log(values);
+                        //     // setStatus({ success: true });
+                        //     setSubmitting(false);
+                        // }
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
@@ -177,8 +187,8 @@ const FirebaseLogin = ({ ...others }) => {
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
                                 <Button
-                                    component={Link}
-                                    to="/dashboard"
+                                    // component={Link}
+                                    // to="/dashboard"
                                     disableElevation
                                     disabled={isSubmitting}
                                     fullWidth

@@ -69,8 +69,8 @@ const NavItem = ({ item, level }) => {
             {...listItemProps}
             disabled={item.disabled}
             sx={{
-                borderRadius: `${customization.borderRadius}px`,
-                mb: 0.5,
+                // borderRadius: `${customization.borderRadius}px`,
+                // mb: 0.5,
                 alignItems: 'flex-start',
                 backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
                 py: level > 1 ? 1 : 1.25,

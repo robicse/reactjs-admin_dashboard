@@ -8,6 +8,7 @@ import MainLayout from 'layout/MainLayout';
 const RolePage = Loadable(lazy(() => import('views/dashboarPages/role')));
 const ResourcePage = Loadable(lazy(() => import('views/dashboarPages/resources')));
 const PermissionPage = Loadable(lazy(() => import('views/dashboarPages/permission')));
+const ProfilePage = Loadable(lazy(() => import('views/dashboarPages/profile')));
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
@@ -25,6 +26,10 @@ const AuthenticationRoutes = {
         {
             path: '/permission',
             element: <PermissionPage />
+        },
+        {
+            path: '/profile',
+            element: <ProfilePage />
         }
     ]
 };

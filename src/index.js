@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from 'serviceWorker';
 import App from 'App';
 import { store } from 'store';
+import AuthState from 'context/authContext/AuthState';
 
 // style + assets
 import 'assets/scss/style.scss';
@@ -16,9 +17,11 @@ import 'assets/scss/style.scss';
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <AuthState>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </AuthState>
     </Provider>,
     document.getElementById('root')
 );
