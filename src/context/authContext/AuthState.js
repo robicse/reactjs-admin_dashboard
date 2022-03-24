@@ -6,6 +6,7 @@ import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
 import { SUCCESS_LOGIN, LOG_OUT } from '../type';
 import BaseURL from 'utils/baseUrl';
+import setAuthToken from 'utils/setToken';
 // import Notification from '../../utlils/notification';
 // import AllApplicationErrorHandle from '../../utlils/allApplicationErrorHandle';
 
@@ -15,7 +16,9 @@ const AuthState = (props) => {
     //     initData = JSON.parse(a);
     // };
     // localCall();
-    const initData = localStorage.getItem('janani_data');
+    const initData = JSON.parse(localStorage.getItem('janani_data'));
+    console.log(initData);
+
     const initialState = {
         isAuthenticated: false,
         user: initData?.userDetails,
@@ -36,6 +39,7 @@ const AuthState = (props) => {
             const res = await axios.post(`${BaseURL}/api/user/login`, data, config);
             localStorage.setItem('janani_data', JSON.stringify(res.data.details));
             dispatch({ type: SUCCESS_LOGIN, payload: res.data });
+            setAuthToken(res.data.token);
             return true;
         } catch (err) {
             console.log(err);

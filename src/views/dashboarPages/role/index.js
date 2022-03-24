@@ -17,6 +17,7 @@ import {
     TableContainer,
     TablePagination
 } from '@mui/material';
+import baseUrl from 'utils/baseUrl';
 // components
 
 export default function User() {
@@ -33,46 +34,42 @@ export default function User() {
 
             <Card>
                 <MaterialTable
-                    title="Admin List"
+                    title="Role List"
                     columns={[
-                        { title: 'Name', field: 'name' },
-                        { title: 'Mobile', field: 'mobile' },
-                        { title: 'Email', field: 'email' },
-                        { title: 'Address', field: 'address' },
-                        {
-                            title: 'Status',
-                            field: 'isActivate',
-                            lookup: { false: 'Deactived', true: 'Activated' }
-                        }
+                        { title: 'Name', field: 'alias' }
+                        // {
+                        //     title: 'Status',
+                        //     field: 'isActivate'
+                        //     // lookup: { false: 'Deactived', true: 'Activated' }
+                        // }
                     ]}
-                    data={[]}
-                    // data={(query) =>
-                    //     new Promise((resolve, reject) => {
-                    //         let url = `${baseUrl}/pos_sale_customer_list_pagination_with_search?`;
-                    //         // searching
-                    //         if (query.search) {
-                    //             url += `search=${query.search}`;
-                    //         }
-                    //         // sorting
-                    //         // if (query.orderBy) {
-                    //         //     url += `&sort=${query.orderBy.field}&order_by=${query.orderDirection}`;
-                    //         // }
+                    data={(query) =>
+                        new Promise((resolve, reject) => {
+                            let url = `${baseUrl}/api/roles/all?`;
+                            // searching
+                            if (query.search) {
+                                url += `search=${query.search}`;
+                            }
+                            // sorting
+                            // if (query.orderBy) {
+                            //     url += `&sort=${query.orderBy.field}&order_by=${query.orderDirection}`;
+                            // }
 
-                    //         url += `&page=${query.page + 1}`;
-                    //         fetch(url, {
-                    //             method: 'post',
-                    //             headers: { Authorization: `Bearer ${user.auth_token}` }
-                    //         })
-                    //             .then((resp) => resp.json())
-                    //             .then((resp) => {
-                    //                 resolve({
-                    //                     data: resp.data,
-                    //                     page: resp?.meta?.current_page - 1,
-                    //                     totalCount: resp?.meta?.total
-                    //                 });
-                    //             });
-                    //     })
-                    // }
+                            url += `&page=${query.page + 1}`;
+                            fetch(url, {
+                                method: 'GET'
+                            })
+                                .then((resp) => resp.json())
+                                .then((resp) => {
+                                    console.log(resp);
+                                    resolve({
+                                        data: resp?.details?.data,
+                                        page: resp?.details?.paging?.pages - 1,
+                                        totalCount: resp?.details?.paging?.total
+                                    });
+                                });
+                        })
+                    }
                     options={{
                         actionsColumnIndex: -1,
                         pageSize: 15

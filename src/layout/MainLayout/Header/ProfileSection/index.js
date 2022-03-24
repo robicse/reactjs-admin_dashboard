@@ -79,6 +79,7 @@ const ProfileSection = () => {
 
         prevOpen.current = open;
     }, [open]);
+    console.log(user);
 
     return (
         <>
@@ -149,10 +150,10 @@ const ProfileSection = () => {
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
                                     <Box sx={{ p: 2 }}>
                                         <Stack>
-                                            <Stack direction="row" spacing={0.5} alignItems="center">
-                                                <Typography variant="h4">Good Morning,</Typography>
+                                            <Stack direction="row" spacing={0.2} alignItems="center">
+                                                <Typography variant="h4">{user?.name}</Typography>
                                                 <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    Johne Doe
+                                                    {/* {user?.name} */}
                                                 </Typography>
                                             </Stack>
                                         </Stack>
